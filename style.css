@@ -1,0 +1,14 @@
+body { background-color: #ffffff; font-family: arial; font-size: 13px;}
+.tdtable {border-bottom: 1px solid #2D2D2D; border-left: 1px solid;}
+.tdtableright {border-bottom: 1px solid #2D2D2D; border-left: 1px solid; border-right: 1px solid; }
+
+
+td { vertical-align: top;  font-family: Arial;  font-size: 13px; }
+th { background-color:#0066CC; color: white; text-align: left; font-face: verdana, arial;  font-size: 9pt; padding:5px;}
+a { text-decoration: underling; color: 000000; }
+a:hover { text-decoration: none; }
+textarea, input { font-family: arial ; font-size: 13px; }
+html body center form table tbody tr td input.login {font-size:30px; }
+html body center form table tbody tr td input.password {font-size:30px; }
+html body center form table tbody tr td input.textboxerror{background-color : #ffffff; border: 2px solid #FF0000;}
+html body center form table tbody tr td textarea.textboxerror {background-color : #ffffff; border: 2px solid #FF0000;}
