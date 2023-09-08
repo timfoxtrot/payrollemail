@@ -12,6 +12,21 @@ switch($_GET[action]){
     case "deptemail";users_only();    dept_email();   break;
 }
 
+//Email template
+function email_content($lastname, $firstname){
+    $content = '
+    Hafa Adai, '.$firstname.' '.$lastname.'!<br><br>
+    
+    Your pay stub is attached.<br><br>  
+    
+    Contact us at 671-648-7946/7947/7948/7951/7991 if you have any inquiries.<br><br>
+    
+    Thank you,<br>
+    GMHA Payroll Office';
+
+    return $content;
+}
+
 //logging success/failed emails
 function email_log($reportdate, $empno, $email, $status, $userid){
 
@@ -69,10 +84,8 @@ function one_email(){
         $file .= ".pdf";
     
         // Email body content 
-        $htmlContent = ' 
-            <h3>HELLO '.$row[firstname].' '.$row[lastname].'</h3> 
-            <p>this is your checkstub</p>'; 
-    
+        $htmlContent = email_content($row[lastname], $row[firstname]);
+
         // Header for sender info 
         $headers = "From: $fromName"." <".$from.">"; 
     
@@ -171,9 +184,7 @@ function dept_email(){
         $file .= ".pdf";
 
         // Email body content 
-        $htmlContent = ' 
-            <h3>HELLO '.$row[firstname].' '.$row[lastname].'</h3> 
-            <p>this is your checkstub</p>'; 
+        $htmlContent = email_content($row[lastname], $row[firstname]);
     
         // Header for sender info 
         $headers = "From: $fromName"." <".$from.">"; 
@@ -286,9 +297,7 @@ function mass_email(){
         $file .= ".pdf";
 
         // Email body content 
-        $htmlContent = ' 
-            <h3>HELLO '.$row[firstname].' '.$row[lastname].'</h3> 
-            <p>this is your checkstub</p>'; 
+        $htmlContent = email_content($row[lastname], $row[firstname]);
     
         // Header for sender info 
         $headers = "From: $fromName"." <".$from.">"; 
