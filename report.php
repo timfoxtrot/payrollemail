@@ -32,7 +32,8 @@ if($_POST){
                 <tr>
                     <th>REPORTDATE</th>
                     <th>DATETIME</th>
-                    <th>EMPNO</th>                
+                    <th>EMPNO</th>
+                    <th>DEPTNO</th>         
                     <th>Email</th>
                     <th>STATUS</th>
                     <th>Sender</th>
@@ -49,17 +50,19 @@ if($_POST){
             $reportdate = $row[reportdate];
             $emaildate  = date('m/d/y, g:ia', $row[datetime]);
             $empno      = $row[empno];
+            $deptno     = $row[deptno];
             $email      = $row[email];
             $status     = $row[status];
             $user       = getusername($row[sender]);
             
-            $user_arr[] = array($reportdate,$emaildate, $empno, $email, $status, $user);
+            $user_arr[] = array($reportdate,$emaildate, $empno, $deptno, $email, $status, $user);
             
             ?>
                 <tr>
                     <td><?php echo $reportdate; ?></td>
                     <td><?php echo $emaildate; ?></td>
-                    <td><?php echo $empno; ?></td>                    
+                    <td><?php echo $empno; ?></td>
+                    <td><?php echo $deptno; ?></td>                    
                     <td><?php echo $email; ?></td>
                     <td><?php echo $status; ?></td>
                     <td><?php echo $user; ?></td>

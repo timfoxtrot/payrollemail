@@ -28,11 +28,12 @@ function email_content($lastname, $firstname){
 }
 
 //logging success/failed emails
-function email_log($reportdate, $empno, $email, $status, $userid){
+function email_log($reportdate, $empno, $deptno, $email, $status, $userid){
 
     $insertemaillog[reportdate] = $reportdate;
     $insertemaillog[datetime]   = time();
     $insertemaillog[empno]      = $empno;
+    $insertemaillog[deptno]     = $deptno;
     $insertemaillog[email]      = $email;
     $insertemaillog[status]     = $status;
     $insertemaillog[sender]     = $userid;
@@ -121,8 +122,8 @@ function one_email(){
     // Send email 
     $mail = @mail($to, $subject, $message, $headers, $returnpath);  
 
-    if($mail)  email_log($ppedate, $row[empno], $row[email], "SUCCESS", $_COOKIE[userid]);
-    if(!$mail) email_log($ppedate, $row[empno], $row[email], "FAILED", $_COOKIE[userid]);
+    if($mail)  email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
+    if(!$mail) email_log($ppedate, $row[empno], $row[deptno], "FAILED", $_COOKIE[userid]);
     
     // Email sending status 
     echo $mail?"<h3>$row[firstname] $row[lastname] - SUCCESS</h3>":"<h3>$row[firstname] $row[lastname] - FAILED</h3>";
@@ -142,7 +143,7 @@ function dept_email(){
     <?php
 
     $db = new MyDB;
-    $db->query("SELECT * FROM employee_tbl where STATUS = 1 and deptno = '$_GET[deptno]'"); 
+    $db->query("SELECT * FROM employee_tbl where STATUS = 1 and deptno = '$_GET[deptno]' ORDER by empno ASC"); 
 
     //loop variables
     $total = $db->getnumrows();
@@ -222,11 +223,11 @@ function dept_email(){
         $mail = @mail($to, $subject, $message, $headers, $returnpath);  
 
         if($mail){
-            email_log($ppedate, $row[empno], $row[email], "SUCCESS", $_COOKIE[userid]);
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
             $successcount++;
         }
         if(!$mail){
-            email_log($ppedate, $row[empno], $row[email], "FAILED", $_COOKIE[userid]);
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
             $failedcount++;
         }
         $i++;
@@ -335,11 +336,11 @@ function mass_email(){
         $mail = @mail($to, $subject, $message, $headers, $returnpath);  
 
         if($mail){
-            email_log($ppedate, $row[empno], $row[email], "SUCCESS", $_COOKIE[userid]);
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
             $successcount++;
         }
         if(!$mail){
-            email_log($ppedate, $row[empno], $row[email], "FAILED", $_COOKIE[userid]);
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
             $failedcount++;
         }
         $i++;
