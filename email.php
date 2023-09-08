@@ -120,10 +120,13 @@ function one_email(){
         $returnpath = "-f" . $from; 
     
     // Send email 
-    $mail = @mail($to, $subject, $message, $headers, $returnpath);  
-
-    if($mail)  email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
-    if(!$mail) email_log($ppedate, $row[empno], $row[deptno], "FAILED", $_COOKIE[userid]);
+    if ($fp == FALSE){
+        email_log($ppedate, $row[empno], $row[deptno], $row[email], "NOPAYCHECK", $_COOKIE[userid]);
+    }else{
+        $mail = @mail($to, $subject, $message, $headers, $returnpath);
+        if($mail)  email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
+        if(!$mail) email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
+    }
     
     // Email sending status 
     echo $mail?"<h3>$row[firstname] $row[lastname] - SUCCESS</h3>":"<h3>$row[firstname] $row[lastname] - FAILED</h3>";
@@ -219,18 +222,24 @@ function dept_email(){
         $message   .= "--{$mime_boundary}--"; 
         $returnpath = "-f" . $from; 
         
-        // Send email 
-        $mail = @mail($to, $subject, $message, $headers, $returnpath);  
+        // Send email
 
-        if($mail){
-            email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
-            $successcount++;
-        }
-        if(!$mail){
-            email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
+        if ($fp == FALSE){
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "NOPAYCHECK", $_COOKIE[userid]);
             $failedcount++;
+        }else{
+            $mail = @mail($to, $subject, $message, $headers, $returnpath);
+            if($mail){
+                email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
+                $successcount++;
+            }
+            if(!$mail){
+                email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
+                $failedcount++;
+            }
         }
         $i++;
+        $fp = 0;
     }
 
     echo '<script language="javascript">document.getElementById("information").innerHTML="Process completed"</script>';
@@ -333,17 +342,22 @@ function mass_email(){
         $returnpath = "-f" . $from; 
         
         // Send email 
-        $mail = @mail($to, $subject, $message, $headers, $returnpath);  
-
-        if($mail){
-            email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
-            $successcount++;
-        }
-        if(!$mail){
-            email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
+        if ($fp == FALSE){
+            email_log($ppedate, $row[empno], $row[deptno], $row[email], "NOPAYCHECK", $_COOKIE[userid]);
             $failedcount++;
+        }else{
+            $mail = @mail($to, $subject, $message, $headers, $returnpath);
+            if($mail){
+                email_log($ppedate, $row[empno], $row[deptno], $row[email], "SUCCESS", $_COOKIE[userid]);
+                $successcount++;
+            }
+            if(!$mail){
+                email_log($ppedate, $row[empno], $row[deptno], $row[email], "FAILED", $_COOKIE[userid]);
+                $failedcount++;
+            }
         }
         $i++;
+        $fp = 0;
     }
 
     //after action report
