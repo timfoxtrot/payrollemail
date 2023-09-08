@@ -249,7 +249,7 @@ function dept_email(){
 //send everyone email
 function mass_email(){
     $db = new MyDB;
-    $db->query( 'SELECT * FROM employee_tbl where STATUS = 1' ); 
+    $db->query('SELECT * FROM employee_tbl where STATUS = 1 ORDER by deptno ASC, empno ASC'); 
 
     ?>
     <!-- Progress bar holder -->

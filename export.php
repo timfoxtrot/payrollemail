@@ -6,7 +6,7 @@ $export_data = unserialize($_POST['export_data']);
 // Create File
 $file = fopen($filename,"w");
 
-$headers = ["ReportDate", "Time email sent", "EMPNO", "DEPTNO", "Email", "Status", "Sender"];
+$headers = ["ReportDate", "Time email sent", "DEPTNO", "EMPNO", "Email", "Status", "Sender"];
 fputcsv($file,$headers);
 
 foreach ($export_data as $line){

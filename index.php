@@ -181,7 +181,7 @@ function main(){
 
 
     $db = new MyDB;
-    $db->query("SELECT * from department");
+    $db->query("SELECT * from department ORDER by deptno ASC");
 
     //view menu
     viewmenu();
@@ -189,11 +189,11 @@ function main(){
     while($rowdept = $db->getrow()){
 
         //default view
-        $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]'";
+        $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]' ORDER by empno ASC";
 
         //active view
-        if($_GET[view] == "active")     $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]' AND status = 1";
-        if($_GET[view] == "inactive")   $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]' AND status = 0";
+        if($_GET[view] == "active")     $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]' AND status = 1 ORDER by empno ASC";
+        if($_GET[view] == "inactive")   $viewquery = "SELECT * from employee_tbl WHERE deptno = '$rowdept[deptno]' AND status = 0 ORDER by empno ASC";
         
         $db2 = new MyDB;
         $db2->query($viewquery);
