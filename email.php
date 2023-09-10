@@ -154,6 +154,7 @@ function dept_email(){
 
     $successcount = 0;
     $failedcount  = 0;
+    $skipcount    = 0;
 
     while($row = $db->getrow()){
         
@@ -170,14 +171,14 @@ function dept_email(){
 
         sleep(1);
 
-        //Recipient
+        // Recipient
         $to = $row[email]; 
 
         // Sender 
         $from     = 'payroll@gmha.org'; 
         $fromName = 'Payroll'; 
 
-            // Email subject 
+        // Email subject 
         $ppedate =  getppedate();
         $subject = 'GMHA Paystub for PPE ';  
         $subject .= $ppedate;
@@ -222,8 +223,23 @@ function dept_email(){
         $message   .= "--{$mime_boundary}--"; 
         $returnpath = "-f" . $from; 
         
-        // Send email
+        /*******************
+         SEND EMAIL BLOCK
+        ********************/
 
+        // Check if employee already received email
+        $db2 = new MyDB;
+        $db2->query("SELECT * FROM email_log where empno = '$row[empno]' and status = 'SUCCESS' and reportdate = '$ppedate'");
+        $row2 = $db2->getrow();
+
+        // Skip employee
+        if($row[empno] == $row2[empno]){
+            $skipcount++;
+            $i++;
+            continue;
+        }
+        
+        // Check if no attachment/file, else continue with email attempt
         if ($fp == FALSE){
             email_log($ppedate, $row[empno], $row[deptno], $row[email], "NOPAYCHECK", $_COOKIE[userid]);
             $failedcount++;
@@ -248,6 +264,7 @@ function dept_email(){
     echo '<br><br>';
     echo "Successful Emails: <b>$successcount</b><br><br>";
     echo "Failed Emails: <b>$failedcount</b><br><br>";
+    echo "Skipped Emails: <b>$skipcount</b><br><br>";
     echo '<form action="report.php" method="post">';
     echo '<input type="hidden" name="reportdate" value="'.$ppedate.'">';
     echo '<input type="submit" value="View Report"/><br><br>';
@@ -341,7 +358,23 @@ function mass_email(){
         $message   .= "--{$mime_boundary}--"; 
         $returnpath = "-f" . $from; 
         
-        // Send email 
+        /*******************
+         SEND EMAIL BLOCK
+        ********************/
+
+        // Check if employee already received email
+        $db2 = new MyDB;
+        $db2->query("SELECT * FROM email_log where empno = '$row[empno]' and status = 'SUCCESS' and reportdate = '$ppedate'");
+        $row2 = $db2->getrow();
+
+        // Skip employee
+        if($row[empno] == $row2[empno]){
+            $skipcount++;
+            $i++;
+            continue;
+        }
+        
+        // Check if no attachment/file, else continue with email attempt
         if ($fp == FALSE){
             email_log($ppedate, $row[empno], $row[deptno], $row[email], "NOPAYCHECK", $_COOKIE[userid]);
             $failedcount++;
