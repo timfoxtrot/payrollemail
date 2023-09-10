@@ -258,7 +258,7 @@ function dept_email(){
         $fp = 0;
     }
 
-    echo '<script language="javascript">document.getElementById("information").innerHTML="Process completed"</script>';
+    //echo '<script language="javascript">document.getElementById("information").innerHTML="Process completed"</script>';
 
     //after action report
     echo '<br><br>';
