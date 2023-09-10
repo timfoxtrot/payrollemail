@@ -290,6 +290,7 @@ function mass_email(){
 
     $successcount = 0;
     $failedcount  = 0;
+    $skipcount    = 0;
 
     while($row = $db->getrow()){
 
@@ -397,6 +398,7 @@ function mass_email(){
     echo '<br><br>';
     echo "Successful Emails: <b>$successcount</b><br><br>";
     echo "Failed Emails: <b>$failedcount</b><br><br>";
+    echo "Skipped Emails: <b>$skipcount</b><br><br>";
     echo '<form action="report.php" method="post">';
     echo '<input type="hidden" name="reportdate" value="'.$ppedate.'">';
     echo '<input type="submit" value="View Report"/><br><br>';
