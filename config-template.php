@@ -20,7 +20,7 @@ date_default_timezone_set( 'Etc/GMT-10' );
 
 //Logo
 function logo(){
-	$logourl   = 'gmhalogo.png';
+	$logourl   = '';
 	$logoimage = '<img src ="'.$logourl.'" border=0>'
 
 	return $logoimage;
