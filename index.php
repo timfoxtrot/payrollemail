@@ -74,7 +74,6 @@ function loginsubmit(){
 		{
 			echo "<li>$error \n";
 			echo "<br><br>";
-			ticket_bottom();
 			exit;
 		}
     }

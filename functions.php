@@ -162,7 +162,7 @@ function getfolderpath(){
 //Get most current folderpath
 function getppedate(){
     sql_connect();
-    $result =   mysql_query( "SELECT * FROM ppedate ORDER BY id DESC LIMIT 1" );
+    $result = mysql_query( "SELECT * FROM ppedate ORDER BY id DESC LIMIT 1" );
 	$row    = mysql_fetch_array ($result, MYSQL_ASSOC);
 	$ppe    = $row[ppe];
 	
