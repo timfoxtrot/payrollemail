@@ -200,7 +200,6 @@ function main(){
 
         if($db2->getnumrows() > 0){
 
-
             $deptname  = getdeptname($rowdept[deptno]);
             $empcount = $db2->getnumrows();
 
@@ -208,22 +207,32 @@ function main(){
             $table->setwidth(800);
             $table->setspacing(0);
             $table->setpadding(6);
-            $table->setcolprops( 'width="200" class="tdtable"', 'width="230" bgcolor="ebebeb" class="tdtable"', 
+            $table->setcolprops('width="200" class="tdtable"', 
+                                'width="230" bgcolor="ebebeb" class="tdtable"', 
                                 'width="100" bgcolor="white" class="tdtable"', 
                                 'width="100" bgcolor="ebebeb" class="tdtable"', 
-                                'width="20" class="tdtable"','width="200" class="tdtableright" bgcolor="ebebeb"');
-            $table->pushth( "$deptname - $rowdept[deptno]","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "Count: $empcount");
+                                'width="20" class="tdtableright"');
+            $table->pushth( "$deptname - $rowdept[deptno]","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "Count: $empcount", "");
 
             while($emprow = $db2->getrow()){
+
+                $checkmark = '' ;
+                $ppedate = getppedate();
+                $db3 = new MyDb;
+                $db3->query("SELECT * from email_log WHERE reportdate = '$ppedate' AND empno = '$emprow[empno]' AND status = 'SUCCESS'");
+                $rowcheck = $db3->getrow();
+
+                if($rowcheck[empno]) $checkmark = '<img src="check.gif">';
+
                 if($emprow[status] == 1){
                     $status = getstatus($emprow[status]);
                     $table->push("$emprow[lastname] $emprow[firstname]",
-                                 "$emprow[email]","<a href=\"email.php?action=oneemail&empno=$emprow[empno]\"><font size=\"1\">Send Email</a></font>", "$status <font size=1><a href=\"index.php?action=deactivate&empno=$emprow[empno]\">(deactivate)</a>");
+                                 "$emprow[email]","<a href=\"email.php?action=oneemail&empno=$emprow[empno]\"><font size=\"1\">Send Email</a></font>", "$status <font size=1><a href=\"index.php?action=deactivate&empno=$emprow[empno]\">(deactivate)</a>", "$checkmark");
                 }
                 if($emprow[status] == 0){
                     $status = getstatus($emprow[status]);
                     $table->push("<s>$emprow[lastname] $emprow[firstname]</s>",
-                                 "<s>$emprow[email]</s>","<s><font size=\"1\">Send Email</a></s></font>", "$status <font size=1><a href=\"index.php?action=activate&empno=$emprow[empno]\">(activate)</a>");
+                                 "<s>$emprow[email]</s>","<s><font size=\"1\">Send Email</a></s></font>", "$status <font size=1><a href=\"index.php?action=activate&empno=$emprow[empno]\">(activate)</a>", "$checkmark");
                 }
              }
             $table->show();
