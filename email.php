@@ -21,7 +21,7 @@ function email_content($lastname, $firstname){
     
     Contact us at 671-648-7946/7947/7948/7951/7991 if you have any inquiries.<br><br>
 
-    This is an auto generated message.  <b>Please do not respond to this email.</b><br><br>
+    <font size="4"><b>This is an auto generated message.  Please do not respond to this email.</b></font><br><br>
     
     Thank you,<br>
     GMHA Payroll Office';
