@@ -213,7 +213,7 @@ function main(){
                                 'width="100" bgcolor="white" class="tdtable"', 
                                 'width="100" bgcolor="ebebeb" class="tdtable"', 
                                 'width="20" class="tdtable"','width="200" class="tdtableright" bgcolor="ebebeb"');
-            $table->pushth( "$deptname","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "Count: $empcount");
+            $table->pushth( "$deptname - $rowdept[deptno]","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "Count: $empcount");
 
             while($emprow = $db2->getrow()){
                 if($emprow[status] == 1){
