@@ -20,6 +20,8 @@ function email_content($lastname, $firstname){
     Your pay stub is attached.<br><br>  
     
     Contact us at 671-648-7946/7947/7948/7951/7991 if you have any inquiries.<br><br>
+
+    This is an auto generated message.  <b>Please do not respond to this email.</b><br><br>
     
     Thank you,<br>
     GMHA Payroll Office';
@@ -135,7 +137,7 @@ function one_email(){
 }
 
 //send department email
-function dept_email(){
+function dept_email(){ 
     ?>
     
     <!-- Progress bar holder -->
