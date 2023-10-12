@@ -1,3 +1,3 @@
 # timfox payroll
 
-auto emails babyyy
+mass email script written to send digital checkstubs to employees. 
