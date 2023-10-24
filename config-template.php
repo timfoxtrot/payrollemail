@@ -21,7 +21,7 @@ date_default_timezone_set( 'Etc/GMT-10' );
 //Logo
 function logo(){
 	$logourl   = '';
-	$logoimage = '<img src ="'.$logourl.'" border=0>'
+	$logoimage = '<img src ="'.$logourl.'" border=0>';
 
 	return $logoimage;
 }
