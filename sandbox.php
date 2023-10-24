@@ -2,6 +2,5 @@
 
 include 'functions.php';
 
-phpinfo();
 
 ?>

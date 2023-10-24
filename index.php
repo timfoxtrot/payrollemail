@@ -208,11 +208,12 @@ function main(){
             $table->setspacing(0);
             $table->setpadding(6);
             $table->setcolprops('width="200" class="tdtable"', 
+                                'width="10" class="tdtable"', 
                                 'width="230" bgcolor="ebebeb" class="tdtable"', 
                                 'width="100" bgcolor="white" class="tdtable"', 
                                 'width="100" bgcolor="ebebeb" class="tdtable"', 
                                 'width="20" class="tdtableright"');
-            $table->pushth( "$deptname - $rowdept[deptno]","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "Count: $empcount", "");
+            $table->pushth( "$deptname - $rowdept[deptno]","", "<a href=\"email.php?action=deptemail&deptno=$rowdept[deptno]\">[send dept email]</a>", "", "Count: $empcount", "");
 
             while($emprow = $db2->getrow()){
 
@@ -226,12 +227,12 @@ function main(){
 
                 if($emprow[status] == 1){
                     $status = getstatus($emprow[status]);
-                    $table->push("$emprow[lastname] $emprow[firstname]",
+                    $table->push("$emprow[lastname] $emprow[firstname]", "$emprow[empno]",
                                  "$emprow[email]","<a href=\"email.php?action=oneemail&empno=$emprow[empno]\"><font size=\"1\">Send Email</a></font>", "$status <font size=1><a href=\"index.php?action=deactivate&empno=$emprow[empno]\">(deactivate)</a>", "$checkmark");
                 }
                 if($emprow[status] == 0){
                     $status = getstatus($emprow[status]);
-                    $table->push("<s>$emprow[lastname] $emprow[firstname]</s>",
+                    $table->push("<s>$emprow[lastname] $emprow[firstname]</s>", "$emprow[empno]",
                                  "<s>$emprow[email]</s>","<s><font size=\"1\">Send Email</a></s></font>", "$status <font size=1><a href=\"index.php?action=activate&empno=$emprow[empno]\">(activate)</a>", "$checkmark");
                 }
              }
